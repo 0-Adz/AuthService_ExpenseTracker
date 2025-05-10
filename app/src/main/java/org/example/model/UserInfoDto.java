@@ -14,9 +14,16 @@ import org.example.entities.UserInfo;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfoDto extends UserInfo {
 
+    @NonNull
     private String firstName;
+
+    @NonNull
     private String lastName;
+
+    @NonNull
     private Long phoneNumber;
+
+    @NonNull
     private String email;
 
 }

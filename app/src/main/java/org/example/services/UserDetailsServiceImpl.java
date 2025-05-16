@@ -58,21 +58,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return false;
         }
         String userId = UUID.randomUUID().toString();
-        userRepository.save(new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>()));
-
+        UserInfo userInfo = new UserInfo(userId, userInfoDto.getUsername(), userInfoDto.getPassword(), new HashSet<>());
+        userRepository.save(userInfo);
+        userInfoDto.setUserId(userId);
         //push events to queue (kafka)
-        userInfoProducer.sendEventToKafka(userInfoEventToPublish(userInfoDto, userId));
+        userInfoProducer.sendEventToKafka(userInfoDto);
         return true;
-    }
-
-    private UserInfoEvent userInfoEventToPublish(UserInfoDto userInfoDto, String userId){
-        return UserInfoEvent.builder()
-                .userId(userId)
-                .firstName(userInfoDto.getFirstName())
-                .lastName(userInfoDto.getLastName())
-                .email(userInfoDto.getEmail())
-                .phoneNumber(userInfoDto.getPhoneNumber())
-                .build();
     }
 
 }

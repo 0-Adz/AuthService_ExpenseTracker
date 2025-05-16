@@ -4,26 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.example.entities.UserInfo;
 
+@EqualsAndHashCode(callSuper = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Data
 @Builder
-@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfoDto extends UserInfo {
 
-    @NonNull
+//    @NonNull
     private String firstName;
 
-    @NonNull
+//    @NonNull
     private String lastName;
 
-    @NonNull
+//    @NonNull
     private Long phoneNumber;
 
-    @NonNull
+//    @NonNull
     private String email;
 
 }

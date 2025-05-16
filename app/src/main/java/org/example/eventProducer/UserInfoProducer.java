@@ -14,7 +14,7 @@ public class UserInfoProducer {
 
     private final KafkaTemplate<String, UserInfoDto> kafkaTemplate;
 
-    @Value("${spring.kafka.topic.name}")
+    @Value("${spring.kafka.topic-json.name}")
     private String TOPIC_NAME;
 
     @Autowired
@@ -22,8 +22,8 @@ public class UserInfoProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendEventToKafka(UserInfoEvent eventData){
-        Message<UserInfoEvent> message = MessageBuilder.withPayload(eventData)
+    public void sendEventToKafka(UserInfoDto eventData){
+        Message<UserInfoDto> message = MessageBuilder.withPayload(eventData)
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME).build();
         kafkaTemplate.send(message);
     }

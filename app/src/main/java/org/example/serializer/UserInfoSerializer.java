@@ -5,15 +5,15 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.example.eventProducer.UserInfoEvent;
 import org.example.model.UserInfoDto;
 
-public class UserInfoSerializer implements Serializer<UserInfoEvent> {
+public class UserInfoSerializer implements Serializer<UserInfoDto> {
     @Override
-    public byte[] serialize(String s, UserInfoEvent eventData) {
+    public byte[] serialize(String s, UserInfoDto eventData) {
         byte[] retVal = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try{
-            retVal = objectMapper.writeValueAsString(eventData).getBytes();
+            retVal = objectMapper.writeValueAsBytes(eventData);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.fillInStackTrace();
         }
         return retVal;
     }
